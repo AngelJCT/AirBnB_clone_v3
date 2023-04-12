@@ -5,7 +5,8 @@ from flask import jsonify
 from models import storage
 
 classes = {"amenities": "Amenity", "cities": "City",
-           "places": "Place", "reviews": "Review", "states": "State", "users": "User"}
+           "places": "Place", "reviews": "Review",
+           "states": "State", "users": "User"}
 
 
 @app_views.route('/status', strict_slashes=False)
