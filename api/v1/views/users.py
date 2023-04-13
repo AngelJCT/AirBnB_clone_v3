@@ -25,13 +25,13 @@ def get_user(user_id):
     return jsonify(user.to_dict())
 
 
-@app_views.route('/users/<user_id>', stict_slashes=False, methods=['DELETE'])
+@app_views.route('users/<user_id>', strict_slashes=False, methods=['DELETE'])
 def delete_user(user_id):
-    """Deletes an User object"""
-    users = storage.get(User, user_id)
-    if users is None:
+    """Deletes a User object"""
+    user = storage.get(User, user_id)
+    if user is None:
         abort(404)
-    users.delete()
+    user.delete()
     storage.save()
     return make_response(jsonify({}), 200)
 
@@ -53,7 +53,7 @@ def post_user():
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['PUT'])
 def put_user(user_id):
-    """Updates User object"""
+    """Updates a User object"""
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
@@ -63,9 +63,5 @@ def put_user(user_id):
     for key, value in data.items():
         if key not in ['id', 'email', 'created_at', 'updated_at']:
             setattr(user, key, value)
-    storage.save()
-    return make_response(jsonify(user.to_dict()), 201)
-
-
-if __name__ == "__main__":
-    app_views.run(host='0.0.0.0')
+    user.save()
+    return make_response(jsonify(user.to_dict()), 200)
