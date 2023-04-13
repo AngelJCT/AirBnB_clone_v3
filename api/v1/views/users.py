@@ -65,3 +65,7 @@ def put_user(user_id):
             setattr(user, key, value)
     user.save()
     return make_response(jsonify(user.to_dict()), 200)
+
+
+if __name__ == "__main__":
+    app_views.run(host="0.0.0.0")
