@@ -9,7 +9,9 @@ from models.state import State
 from models.city import City
 
 
-@app_views.route('/states/<state_id>/cities', strict_slashes=False, methods=['GET'])
+@app_views.route('/states/<state_id>/cities',
+                 strict_slashes=False,
+                 methods=['GET'])
 def get_cities(state_id):
     """Retrieves the list of all City objects of a State"""
     state = storage.get(State, state_id)
@@ -42,7 +44,9 @@ def delete_city(city_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.route('/states/<state_id>/cities', strict_slashes=False, methods=['POST'])
+@app_views.route('/states/<state_id>/cities',
+                 strict_slashes=False,
+                 methods=['POST'])
 def post_city(state_id):
     """Creates a City"""
     state = storage.get(State, state_id)

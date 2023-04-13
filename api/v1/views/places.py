@@ -8,7 +8,9 @@ from models.place import Place
 from models.user import User
 
 
-@app_views.route('/cities/<city_id>/places', strict_slashes=False, methods=['GET'])
+@app_views.route('/cities/<city_id>/places',
+                 strict_slashes=False,
+                 methods=['GET'])
 def get_places(city_id):
     """Retrieves the list of all places in a city"""
     city = storage.get(City, city_id)
@@ -29,7 +31,9 @@ def get_place(place_id):
     return jsonify(place.to_dict())
 
 
-@app_views.route('/places/<place_id>', strict_slashes=False, methods=['DELETE'])
+@app_views.route('/places/<place_id>',
+                 strict_slashes=False,
+                 methods=['DELETE'])
 def delete_place(place_id):
     """Retrieves the list of all places in a city"""
     place = storage.get(Place, place_id)
@@ -40,7 +44,9 @@ def delete_place(place_id):
     return jsonify({}), 200
 
 
-@app_views.route('/cities/<city_id>/places', strict_slashes=False, methods=['POST'])
+@app_views.route('/cities/<city_id>/places',
+                 strict_slashes=False,
+                 methods=['POST'])
 def post_place(city_id):
     """Creates a Place"""
     city = storage.get(City, city_id)
@@ -50,7 +56,7 @@ def post_place(city_id):
     if data is None:
         abort(400, 'Not a JSON')
     if 'user_id' not in data:
-        abort(400, 'Missing user_id')
+        abort(404, 'Missing user_id')
     else:
         user = storage.get(User, data['user_id'])
         if user is None:
