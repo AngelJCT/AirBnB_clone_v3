@@ -63,7 +63,8 @@ def post_review(place_id):
             abort(404)
     if 'text' not in data:
         abort(400, 'Missing text')
-    review = Review(place_id, **data)
+    data['place_id'] = place_id
+    review = Review(**data)
     review.save()
     return jsonify(review.to_dict()), 201
 
@@ -77,8 +78,6 @@ def put_review(review_id):
     data = request.get_json()
     if data is None:
         abort(400, 'Not a JSON')
-    review = Review(review_id, **data)
-    review.save()
     for key, value in data.items():
         if key not in ['id', 'user_id',
                        'place_id', 'created_at',
